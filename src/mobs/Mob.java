@@ -10,5 +10,22 @@ public abstract class Mob {
 	public int healthMax;
 	public List<Item> inventory;
 	public String name;
+
+	public void heal(String user, String ability, int  x) {
+		healthCurrent += x;
+		if (healthCurrent > healthMax) {
+			healthCurrent = healthMax;
+		}
+		System.out.println(user + " used " + ability + " and healed for " + x + " health");
+	}
 	
+	public boolean damage(String user, String ability, String target, int x) {
+		healthCurrent -= x;
+		System.out.println(user + " used " + ability + " on " + target + " for " + x + " health");
+		if (healthCurrent <= 0) {
+			System.out.println(target + " was defeated by " + user + "!");
+			return false;
+		}
+		return true;
+	}
 }

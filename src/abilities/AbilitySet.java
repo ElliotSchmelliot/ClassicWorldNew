@@ -24,8 +24,8 @@ public class AbilitySet {
 			offHand = null;
 		}
 		melee = null;
-		spell1 = null;
-		spell2 = null;
+		spell1 = new Ability("Pray", 10);
+		spell2 = new Ability("Magic Spit", -100);
 	}
 
 	public String toString() {

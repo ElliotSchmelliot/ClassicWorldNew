@@ -15,14 +15,14 @@ public class EquipmentSet {
 	public boolean shieldEq;
 
 	public EquipmentSet() {
-		mainHand = new Sword("Newbie Sword", 5, 0, new Ability("Slash", 5), new Ability("Stab", 5));
+		mainHand = new Sword("Newbie Sword", 5, 0, new Ability("Slash", -15), new Ability("Stab", -5));
 		offHand = null;
 		offHandEq = false;
 		helmet = new Helmet("Newbie Helment", 5, 0);
 		chest = new Chest("Newbie Chest", 5, 0);
 		legs = new Legs("Newbie Legs", 5, 0);
 		feet = new Feet("Newbie Feet", 5, 0);
-		shield = new Shield("Newbie Shield", 5, 0, 5, new Ability("Shield Smash", 5));
+		shield = new Shield("Newbie Shield", 5, 0, 5, new Ability("Shield Smash", -3, true, 1.0));
 		shieldEq = true;
 	}
 
