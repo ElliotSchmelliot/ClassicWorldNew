@@ -4,5 +4,6 @@ public abstract class Mob {
 	int healthCurrent;
 	int healthMax;
 	//Item[] inventory;
+	String name;
 	
 }
