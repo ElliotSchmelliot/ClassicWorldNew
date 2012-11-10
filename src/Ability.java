@@ -8,4 +8,8 @@ public class Ability {
 		this.damage = damage;
 	}
 	
+	public String toString() {
+		return name;
+	}
+	
 }

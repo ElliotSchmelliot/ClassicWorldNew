@@ -5,7 +5,8 @@ public abstract class Weapon extends Item {
 
 	int attack;
 	int durability;
-	ArrayList<Ability> abilities;
+	Ability primary;
+	Ability secondary;
 	
 	public abstract int damage();
 	

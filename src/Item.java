@@ -5,4 +5,8 @@ public abstract class Item {
 	int level;
 	int quality;
 	
+	public String toString() {
+		return name;
+	}
+	
 }

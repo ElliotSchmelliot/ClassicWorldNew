@@ -1,17 +1,11 @@
 
-public class Shield extends OffHand {
+public class Shield extends Armor {
 
-	public Shield(String name, int abilityPower, int durability, int quality, int level) {
+	public Shield(String name, int durability, int quality, int level) {
 		this.name = name;
-		this.abilityPower = abilityPower;
 	}
 	
 	public void use() {
-		
-	}
-
-	
-	public void abilityPower() {
 		
 	}
 
