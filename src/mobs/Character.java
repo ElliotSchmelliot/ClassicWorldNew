@@ -1,8 +1,6 @@
 package mobs;
-import items.Armor;
-import items.Item;
-import items.OffHand;
-import items.Weapon;
+import items.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +19,8 @@ public class Character extends Mob {
 	List<Ability> masterSpell;
 	// List<Ability> masterStealth;
 	Ability[] equippedAbilities;
-	Weapon mainHand;
-	OffHand offHand;
-	Armor[] equipment;
 	Scanner input;
+	EquipmentSet equipment;
 
 
 	public Character() {
@@ -39,23 +35,7 @@ public class Character extends Mob {
 		healthCurrent = healthMax;
 		abilities = new ArrayList<Ability>();
 		equippedAbilities = new Ability[6];
-		// Head, Chest, Pants, Shoes, Shield
-		equipment = new Armor[5];
 		inventory = new Item[10];
-		mainHand = null;
-		offHand = null;
-	}
-
-	public void getEquipment() {
-		System.out.println("1) Equipped Equipment");
-		System.out.println("2) Main hand: " + mainHand);
-		System.out.println("3) Off hand: " + offHand);
-		System.out.println("4) Head: " + equipment[0]);
-		System.out.println("5) Chest: " + equipment[1]);
-		System.out.println("6) Pants: " + equipment[2]);
-		System.out.println("7) Shoes: " + equipment[3]);
-		System.out.println("8) Shield: " + equipment[4]);
-		System.out.println();
 	}
 
 	public void getActiveAbilities() {
