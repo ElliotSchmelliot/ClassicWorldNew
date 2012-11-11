@@ -1,3 +1,4 @@
+package abilities;
 
 public class Ability {
 	String name;

@@ -1,3 +1,6 @@
+package items;
+import abilities.Ability;
+
 
 public class Sword extends Weapon {
 

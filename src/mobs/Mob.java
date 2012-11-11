@@ -1,3 +1,6 @@
+package mobs;
+import items.Item;
+
 
 public abstract class Mob {
 	int level;

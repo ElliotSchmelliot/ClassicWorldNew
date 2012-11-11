@@ -1,4 +1,9 @@
+package items;
+
 import java.util.ArrayList;
+
+import abilities.Ability;
+
 
 
 public abstract class Weapon extends Item {

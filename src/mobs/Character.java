@@ -1,15 +1,25 @@
+package mobs;
+import items.Armor;
+import items.Item;
+import items.OffHand;
+import items.Weapon;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import abilities.Ability;
+
 
 
 public class Character extends Mob {
 	int strength;
 	int intelligence;
 	// int agility;
-	List<Ability> melee;
-	List<Ability> spells;
-	// Ability[] stealth;
+	List<Ability> abilities;
+	List<Ability> masterMelee;
+	List<Ability> masterSpell;
+	// List<Ability> masterStealth;
 	Ability[] equippedAbilities;
 	Weapon mainHand;
 	OffHand offHand;
@@ -27,8 +37,7 @@ public class Character extends Mob {
 		level = 1;
 		healthMax = 100;
 		healthCurrent = healthMax;
-		melee = new ArrayList();
-		spells = new ArrayList();
+		abilities = new ArrayList<Ability>();
 		equippedAbilities = new Ability[6];
 		// Head, Chest, Pants, Shoes, Shield
 		equipment = new Armor[5];
@@ -63,22 +72,14 @@ public class Character extends Mob {
 		System.out.println();
 	}
 
-	public int getAbilities() {
+	public void getAbilities() {
 		System.out.println("Abilities");
 		int i = 1;
-		System.out.println("Melee Abilities");
-		for (Ability a : melee) {
-			System.out.println(i + ") " + a);
-			i++;
-		}
-		int spell1 = i;
-		System.out.println("Spell Abilities");
-		for (Ability a : spells) {
+		for (Ability a : abilities) {
 			System.out.println(i + ") " + a);
 			i++;
 		}
 		System.out.println();
-		return spell1;
 	}
 
 	public void getInventory() {
@@ -92,44 +93,43 @@ public class Character extends Mob {
 	}
 
 	public void changeOutAbilities() {
-		boolean done = false;
-		boolean choice = false;
-		int spell1 = 0;
+		boolean done = true;
+		boolean choice = true;
 		int old = 0;
 		int replace = 0;
 
-		while (!done) {
-			while (!choice) {
-				System.out.println("Which character ability would you like to switch? (choose #) ");
+		while (done) {
+			while (choice) {
+				System.out.println("Which character ability would you like to switch?");
 				getActiveAbilities();
+				System.out.print("Ability slot (4/5/6): ");
 				old = input.nextInt();
 				if (old == 4 || old == 5 || old == 6) {
-					choice = !choice;
+					choice = false;
+				} else {
+					System.out.println("Invalid input");
 				}
 			}
-			choice = false;
-			while (!choice) {
-				System.out.println("Which character ability would you like to replace " + equippedAbilities[old - 1] + " with? (choose #) ");
-				spell1 = getAbilities();
+			choice = true;
+			while (choice) {
+				System.out.println("Which character ability would you like to replace " + equippedAbilities[old - 1] + "?");
+				getAbilities();
+				System.out.print("Ability number: ");
 				replace = input.nextInt();
-				if (replace <= 0 || replace > melee.size() + spells.size()) {
-					System.out.println("Invalid input.");
-				} else if (old == 4 && replace < spell1) {
-					choice = !alreadyEquipped(melee.get(replace - 1));
-				} else if (old == 5 || old == 6 && replace > spell1) {
-					choice = !alreadyEquipped(spells.get(replace - spell1));
-				} if (!choice) {
-					System.out.println("Ability already equipped.");
+				if (replace > abilities.size() || replace < 1) {
+					System.out.println("Invalid input");
+				} else if (alreadyEquipped(abilities.get(replace - 1))) {
+					System.out.println("Ability already equipped");
+				} else {
+					equippedAbilities[old - 1] = abilities.get(replace - 1);
+					choice = false;
+					done = false;
 				}
-			}
-			if (old == 4) {
-				equippedAbilities[old - 1] = melee.get(replace - 1);
-			} else {
-				equippedAbilities[old - 1] = spells.get(replace - spell1);
 			}
 			System.out.println("Do you want to switch another ability? (1 = yes/2 = no) ");
 			if (input.nextInt() == 1) {
-				choice = !choice;
+				choice = true;
+				done = true;
 			}
 		}
 	}

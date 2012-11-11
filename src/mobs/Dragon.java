@@ -1,3 +1,4 @@
+package mobs;
 
 public class Dragon extends Monster {
 	
