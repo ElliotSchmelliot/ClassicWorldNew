@@ -43,7 +43,7 @@ public class AbilitySet {
 
 	public void abilitySwap(ArrayList<Ability> meleeList, ArrayList<Ability> spellList, Scanner input) {
 		String choice = "";
-		while (choice.toLowerCase().equals("melee") && choice.toLowerCase().equals("spell")) {
+		while (!choice.toLowerCase().equals("melee") && !choice.toLowerCase().equals("spell")) {
 			System.out.print("Which type of ability would you like to switch, melee or spell? ");
 			choice = input.next();
 		}
