@@ -3,13 +3,13 @@ package items;
 import java.lang.reflect.Field;
 
 public class EquipmentSet {
-	Weapon mainHand;
-	OffHand offHand;
+	public Weapon mainHand;
+	public OffHand offHand;
 	Helmet helmet;
 	Chest chest;
 	Legs legs;
 	Feet feet;
-	Shield shield;
+	public Shield shield;
 
 	public EquipmentSet() {
 		mainHand = null;

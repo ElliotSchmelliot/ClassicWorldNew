@@ -10,8 +10,8 @@ public abstract class Weapon extends Item {
 
 	int attack;
 	int durability;
-	Ability primary;
-	Ability secondary;
+	public Ability primary;
+	public Ability secondary;
 	
 	public abstract int damage();
 	
