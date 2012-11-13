@@ -9,12 +9,10 @@ public abstract class OffHand extends Item {
 	int durability;
 	public Ability power;
 	
-	public abstract void use();
-	
-	public abstract void abilityPower();
-	
+	public abstract int use();
+		
 	public int cost() {
-		return level * quality * 1000 / durability;
+		return abilityPower;
 	}
 	
 }

@@ -12,14 +12,10 @@ public class Sword extends Weapon {
 		this.secondary = secondary;
 		durability = 1000;
 	}
-	
-	public int damage() {
-		return attack;
-	}
 
 	public int use() {
 		durability -= 5;
-		return damage();
+		return attack;
 	}
 
 }

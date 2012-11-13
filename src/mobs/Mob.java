@@ -1,12 +1,14 @@
 package mobs;
-import items.Item;
+
+import java.util.List;
+import items.*;
 
 
 public abstract class Mob {
-	int level;
-	int healthCurrent;
+	public int level;
+	public int healthCurrent;
 	int healthMax;
-	Item[] inventory;
+	List<Item> inventory;
 	String name;
 	
 }

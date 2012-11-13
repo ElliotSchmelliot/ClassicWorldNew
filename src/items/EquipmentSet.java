@@ -13,13 +13,13 @@ public class EquipmentSet {
 	public Shield shield;
 
 	public EquipmentSet() {
-		mainHand = null;
+		mainHand = new Sword("Newbie Sword", 5, 0, new Ability("Slash", 5), new Ability("Stab", 5));
 		offHand = null;
-		helmet = null;
-		chest = null;
-		legs = null;
-		feet = null;
-		shield = null;
+		helmet = new Helmet("Newbie Helment", 5, 0);
+		chest = new Chest("Newbie Chest", 5, 0);
+		legs = new Legs("Newbie Legs", 5, 0);
+		feet = new Feet("Newbie Feet", 5, 0);
+		shield = new Shield("Newbie Shield", 5, 0, 5, new Ability("Shield Smash", 5));
 	}
 
 	public EquipmentSet(Weapon mainHand, OffHand offHand, Helmet helmet, Chest chest, Legs legs, Feet feet, Shield shield) {

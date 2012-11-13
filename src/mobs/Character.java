@@ -8,12 +8,9 @@ import abilities.*;
 
 
 public class Character extends Mob {
-	public int level;
 	public int exp;
 	public int strength;
 	public int intelligence;
-	public int healthMax;
-	public int healthCurrent;
 	public int coin;
 	// int agility;
 	public List<Ability> melee;
@@ -24,7 +21,6 @@ public class Character extends Mob {
 	public Scanner input;
 	public EquipmentSet equipment;
 	public AbilitySet equippedAbilities;
-	public List<Item> inventory;
 
 	public Character() {
 		input = new Scanner(System.in);

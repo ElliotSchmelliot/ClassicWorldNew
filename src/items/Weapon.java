@@ -8,13 +8,11 @@ public abstract class Weapon extends Item {
 	public int durability;
 	public Ability primary;
 	public Ability secondary;
-	
-	public abstract int damage();
-	
+		
 	public abstract int use();
 	
 	public int cost() {
-		return attack + durability;
+		return attack;
 	}
 	
 }
