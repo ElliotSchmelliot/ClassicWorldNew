@@ -2,9 +2,9 @@ package items;
 
 public abstract class Item {
 
-	String name;
-	int level;
-	int quality;
+	public String name;
+	public int level;
+	public int quality;
 	
 	public String toString() {
 		return name;
