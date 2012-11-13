@@ -8,8 +8,8 @@ import abilities.Ability;
 
 public abstract class Weapon extends Item {
 
-	int attack;
-	int durability;
+	public int attack;
+	public int durability;
 	public Ability primary;
 	public Ability secondary;
 	

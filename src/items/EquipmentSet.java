@@ -5,10 +5,10 @@ import java.lang.reflect.Field;
 public class EquipmentSet {
 	public Weapon mainHand;
 	public OffHand offHand;
-	Helmet helmet;
-	Chest chest;
-	Legs legs;
-	Feet feet;
+	public Helmet helmet;
+	public Chest chest;
+	public Legs legs;
+	public Feet feet;
 	public Shield shield;
 
 	public EquipmentSet() {

@@ -1,18 +1,18 @@
 package abilities;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import items.*;
 
 public class AbilitySet {
-	Ability main1;
-	Ability main2;
-	Ability offHand;
-	Ability melee;
-	Ability spell1;
-	Ability spell2;
+	public Ability main1;
+	public Ability main2;
+	public Ability offHand;
+	public Ability melee;
+	public Ability spell1;
+	public Ability spell2;
 
 	public AbilitySet(EquipmentSet equipped) {
 		main1 = equipped.mainHand.primary;
@@ -41,7 +41,7 @@ public class AbilitySet {
 		return write;
 	}
 
-	public void abilitySwap(ArrayList<Ability> meleeList, ArrayList<Ability> spellList, Scanner input) {
+	public void abilitySwap(List<Ability> meleeList, List<Ability> spellList, Scanner input) {
 		String choice = "";
 		while (!choice.toLowerCase().equals("melee") && !choice.toLowerCase().equals("spell")) {
 			System.out.print("Which type of ability would you like to switch, melee or spell? ");
