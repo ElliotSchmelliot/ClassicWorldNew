@@ -1,10 +1,6 @@
 package items;
 
-import java.util.ArrayList;
-
 import abilities.Ability;
-
-
 
 public abstract class Weapon extends Item {
 
@@ -18,7 +14,7 @@ public abstract class Weapon extends Item {
 	public abstract int use();
 	
 	public int cost() {
-		return quality * level * 1000 / durability;
+		return attack + durability;
 	}
 	
 }

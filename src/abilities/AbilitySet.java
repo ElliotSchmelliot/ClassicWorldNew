@@ -3,7 +3,6 @@ package abilities;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Scanner;
-
 import items.*;
 
 public class AbilitySet {

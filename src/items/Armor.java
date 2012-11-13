@@ -1,5 +1,8 @@
 package items;
 
 public abstract class Armor extends Item {
-	int durability;
+	public int durability;
+	public int defense;
+	
+	
 }

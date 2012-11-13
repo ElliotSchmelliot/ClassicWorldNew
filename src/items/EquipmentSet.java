@@ -1,7 +1,6 @@
 package items;
 
 import java.lang.reflect.Field;
-
 import abilities.*;
 
 public class EquipmentSet {
@@ -44,6 +43,7 @@ public class EquipmentSet {
 			}
 		} catch (IllegalArgumentException e) {
 			System.out.println("Item cannot be equipped");
+			return equipping;
 		} catch (IllegalAccessException e) {
 			// won't happen
 		} if (equipping.getClass().getName().equals("Shield")) { 
