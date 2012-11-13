@@ -7,8 +7,8 @@ import items.*;
 public abstract class Mob {
 	public int level;
 	public int healthCurrent;
-	int healthMax;
-	List<Item> inventory;
-	String name;
+	public int healthMax;
+	public List<Item> inventory;
+	public String name;
 	
 }

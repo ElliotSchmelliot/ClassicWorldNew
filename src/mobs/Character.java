@@ -24,8 +24,9 @@ public class Character extends Mob {
 
 	public Character() {
 		input = new Scanner(System.in);
-		System.out.println("What's your characters name?");
+		System.out.print("What's your characters name? ");
 		name = input.next();
+		System.out.println();
 		level = 1;
 		exp = 0;
 		strength = 1;
@@ -101,6 +102,13 @@ public class Character extends Mob {
 		int i = 1;
 		for (Ability a : list) {
 			System.out.println(i + ") " + a);
+		}
+	}
+	
+	public void heal() {
+		healthCurrent += 10;
+		if (healthCurrent > healthMax) {
+			healthCurrent = healthMax;
 		}
 	}
 

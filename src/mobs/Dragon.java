@@ -13,6 +13,7 @@ public class Dragon extends Monster {
 		healthMax = health;
 		healthCurrent = healthMax;
 		this.inventory = inventory;
+		this.name = name;
 	}
 	
 }

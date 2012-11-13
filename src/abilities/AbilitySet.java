@@ -16,9 +16,9 @@ public class AbilitySet {
 	public AbilitySet(EquipmentSet equipped) {
 		main1 = equipped.mainHand.primary;
 		main2 = equipped.mainHand.secondary;
-		if (!equipped.offHand.equals(null)) {
+		if (equipped.offHandEq) {
 			offHand = equipped.offHand.power;
-		} else if (!equipped.shield.equals(null)) {
+		} else if (equipped.shieldEq) {
 			offHand = equipped.shield.power;
 		} else {
 			offHand = null;
@@ -30,12 +30,14 @@ public class AbilitySet {
 
 	public String toString() {
 		String write = "Equipped Abilities\n";
+		int i = 1;
 		for (Field f : AbilitySet.class.getFields()) {
 			try {
-				write += f.getName() + ": " + f.get(this) + "\n";
+				write += i + ") " + f.getName() + ": " + f.get(this) + "\n";
 			} catch (IllegalArgumentException e) {
 			} catch (IllegalAccessException e) {
 			}
+			i++;
 		}
 		return write;
 	}
@@ -76,6 +78,11 @@ public class AbilitySet {
 				spell2 = spellList.get(pick - 1);
 			}
 		}
+	}
+	
+	public Ability getAbility(int i) throws IllegalArgumentException, IllegalAccessException {
+		Field[] f = AbilitySet.class.getFields();
+		return (Ability) f[i - 1].get(this);
 	}
 
 }
