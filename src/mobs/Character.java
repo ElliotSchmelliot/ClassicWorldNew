@@ -67,7 +67,7 @@ public class Character extends Mob {
 		System.out.println("Which item would you like to equip?");
 		getInventory();
 		System.out.println("Select a number: ");
-		equipment.equip(inventory.get(input.nextInt() - 1));
+		addToInventory(equipment.equip(inventory.get(input.nextInt() - 1), equippedAbilities));
 	}
 
 }

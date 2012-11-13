@@ -2,6 +2,8 @@ package items;
 
 import java.lang.reflect.Field;
 
+import abilities.*;
+
 public class EquipmentSet {
 	public Weapon mainHand;
 	public OffHand offHand;
@@ -31,11 +33,12 @@ public class EquipmentSet {
 		this.shield = shield;
 	}
 
-	public void equip(Item equipping) {
+	public Item equip(Item equipping, AbilitySet abilities) {
+		Item replace = null;
 		try {
 			for (Field f : EquipmentSet.class.getFields()) {
 				if (f.getClass().equals(equipping.getClass())) {
-					// put f in inventory f.get(this)
+					replace = (Item) f.get(this);
 					f.set(this, equipping);
 				}
 			}
@@ -44,21 +47,27 @@ public class EquipmentSet {
 		} catch (IllegalAccessException e) {
 			// won't happen
 		} if (equipping.getClass().getName().equals("Shield")) { 
-			// put offHand in inventory
+			replace = offHand;
 			offHand = null;
+			abilities.offHand = shield.power;
 			System.out.println("Offhand item removed and shield equipped.");
-		} if (equipping.getClass().getName().equals("OffHand")) {
-			// put shield in inventory
+		} else if (equipping.getClass().getName().equals("OffHand")) {
+			replace = shield;
 			shield = null;
+			abilities.offHand = offHand.power;
 			System.out.println("Shield removed and offhand item equipped.");
+		} else if (equipping.getClass().getName().equals("Weapon")) {
+			abilities.main1 = mainHand.primary;
+			abilities.main2 = mainHand.secondary;
 		}
+		return replace;
 	}
 
-	public void getEquippment() throws IllegalArgumentException, IllegalAccessException {
-		int i = 1;
-		for (Field f : EquipmentSet.class.getFields()) {
-			System.out.println(i + ") " + f.getName() + f.get(this));
-		}
+public void getEquippment() throws IllegalArgumentException, IllegalAccessException {
+	int i = 1;
+	for (Field f : EquipmentSet.class.getFields()) {
+		System.out.println(i + ") " + f.getName() + f.get(this));
 	}
+}
 
 }
