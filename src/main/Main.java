@@ -21,6 +21,7 @@ public class Main {
 		Ability primary = new Ability("Slash", 10);
 		Ability secondary = new Ability("Bash", 5);
 		Sword masterSword = new Sword("Master Sword", 10, 3, 1, primary, secondary);
+		champ.equipment.mainHand = masterSword;
 		
 	}
 }
