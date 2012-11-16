@@ -15,7 +15,7 @@ public class EquipmentSet {
 	public boolean shieldEq;
 
 	public EquipmentSet() {
-		mainHand = new Sword("Newbie Sword", 5, 0, new Ability("Slash", -15), new Ability("Stab", -5));
+		mainHand = new Sword("Newbie Sword", 5, 0, new Ability("Slash", -8), new Ability("Stab", -5));
 		offHand = null;
 		offHandEq = false;
 		helmet = new Helmet("Newbie Helment", 5, 0);
@@ -71,10 +71,11 @@ public class EquipmentSet {
 		return replace;
 	}
 
-	public void getEquippment() throws IllegalArgumentException, IllegalAccessException {
+	public void getEquipment() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
 		int i = 1;
 		for (Field f : EquipmentSet.class.getFields()) {
 			System.out.println(i + ") " + f.getName() + f.get(this));
+			i++;
 		}
 	}
 

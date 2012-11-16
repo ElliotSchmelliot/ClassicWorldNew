@@ -10,9 +10,8 @@ import mobs.*;
 import items.*;
 
 public class Main extends General {
-	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException {
+	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
 		printIntro();
-		System.out.println(roundUp(1.3));
 		Character champ = new Character();
 		List<Ability> a = new ArrayList<Ability>();
 		a.add(new Ability("Fire Breath", -10));
@@ -27,27 +26,27 @@ public class Main extends General {
 		System.out.println("Welcome to Classic World New.");
 		System.out.println("Redevoloped by James Murphree and Elliot Keder 11/1/12.");
 		System.out.println("Good luck!");
+		System.out.println();
 	}
 
-	public static void fight(Character champ, Monster enemy) throws IllegalArgumentException, IllegalAccessException {
+	public static void fight(Character champ, Monster enemy) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
 		Random r = new Random();
 		boolean fight = true;
 		boolean roundStun = false;
 		while (fight) {
 			System.out.println(champ.name + "'s health: " + champ.healthCurrent);
 			System.out.println(enemy.name + "'s health: " + enemy.healthCurrent);
-			System.out.print("\nWhat would you like to do (R)un, (F)ight, or (I)tems? " );
+			System.out.print("\nWould you like to (R)un, (F)ight, or (V)iew Info? " );
 			String choice = "";
-			while (!choice.equals("F") && !choice.equals("R") && !choice.equals("I")) {
-				choice = champ.input.next().toUpperCase();
+			while (!choice.equals("F") && !choice.equals("R") && !choice.equals("V")) {
+				choice = champ.input.next().toUpperCase().trim();
 			} 
 			System.out.println();
 			if (choice.equals("F")) {
 				int attackNum = 0;
 				while (attackNum < 1 || attackNum > 6) {
-					System.out.println("Choose an attack:");
 					System.out.print(champ.equippedAbilities);
-					System.out.print("Pick a number: ");
+					System.out.print("Choose an attack number: ");
 					attackNum = champ.input.nextInt();
 				}
 				System.out.println();
@@ -68,11 +67,30 @@ public class Main extends General {
 					System.out.println("You fail to run away...");
 				}
 			} else { // ("I")
-				//Inventory code here...
+				boolean loopView = true;
+				while (loopView) {
+					String choice2 = "";
+					System.out.print("Would you like to view (I)nventory, (E)quipment, or (A)bilities? (X) to exit.");
+					while (!choice2.equals("I") && !choice2.equals("E") && !choice2.equals("A") && !choice2.equals("X")) {
+						choice2 = champ.input.next().toUpperCase().trim();
+					}
+					System.out.println();
+					if (choice2.equals("I")) {
+						champ.getInventory();
+						System.out.println();
+					} else if (choice2.equals("E")) { 
+						champ.equipment.getEquipment();
+						System.out.println();
+					} else if (choice2.equals("A")) {
+						//View abilities
+					} else {// ("X")
+						loopView = false;
+					}
+				}
 			} 
 			
 			//Enemy retaliation
-			if (enemy.healthCurrent > 0 && fight) {
+			if (enemy.healthCurrent > 0 && fight && (choice.equals("F") || choice.equals("R"))) {
 				if (roundStun) {
 					System.out.println(enemy.name + " is stunned!");
 					roundStun = false;
@@ -85,8 +103,10 @@ public class Main extends General {
 						enemy.heal(enemy.name, attack.name, power);
 					}
 				}
+				System.out.println();
 			}
-			System.out.println();
+
 		}
+		//Loot the bodies!!
 	}
 }

@@ -24,7 +24,7 @@ public class Character extends Mob {
 
 	public Character() {
 		input = new Scanner(System.in);
-		System.out.print("What's your characters name? ");
+		System.out.print("Enter a character name: ");
 		name = input.next().trim();
 		System.out.println();
 		level = 1;
@@ -41,12 +41,17 @@ public class Character extends Mob {
 		equipment = new EquipmentSet();
 		equippedAbilities = new AbilitySet(equipment);
 		inventory = new ArrayList<Item>();
+		inventory.add(new Consumable("Butterscotch Oatmeal Cookie", 1, 50)); //Heals
+		inventory.add(new Consumable("Spam", 1, 10)); //Heals
+		inventory.add(new Consumable("Firebomb", 1, 35)); //Deals damage
+		inventory.add(new Consumable("Chrome Garbage Can", 1, 100)); //Monetary value only
 	}
 	
 	public void getInventory() {
-		int j = 1;
-		for (Item i : inventory) {
-			System.out.println(j + ") " + i);
+		int count = 1;
+		for (Item item : inventory) {
+			System.out.println(count + ") " + item.name);
+			count++;
 		}
 	}
 	
