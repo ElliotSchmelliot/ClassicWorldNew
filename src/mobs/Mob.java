@@ -1,10 +1,12 @@
 package mobs;
 
 import java.util.List;
+
+import main.General;
 import items.*;
 
 
-public abstract class Mob {
+public abstract class Mob extends General {
 	public int level;
 	public int healthCurrent;
 	public int healthMax;
@@ -27,6 +29,14 @@ public abstract class Mob {
 			return false;
 		}
 		return true;
+	}
+	
+	public void getInventory() {
+		int count = 1;
+		for (Item item : inventory) {
+			System.out.println(count + ") " + item.name);
+			count++;
+		}
 	}
 	
 }
