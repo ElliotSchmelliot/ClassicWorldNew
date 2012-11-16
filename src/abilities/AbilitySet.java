@@ -3,11 +3,9 @@ package abilities;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Scanner;
-
-import main.General;
 import items.*;
 
-public class AbilitySet extends General {
+public class AbilitySet {
 	public Ability main1;
 	public Ability main2;
 	public Ability offHand;
@@ -25,7 +23,7 @@ public class AbilitySet extends General {
 		} else {
 			offHand = null;
 		}
-		melee = new Ability("Bone Storm", -50);
+		melee = null;
 		spell1 = new Ability("Pray", 10);
 		spell2 = new Ability("Magic Spit", -100);
 	}
@@ -52,7 +50,11 @@ public class AbilitySet extends General {
 		}
 		if (choice.equals("melee")) {
 			System.out.println("Pick an ability to swap with.");
-			printList(meleeList);
+			int i = 1;
+			for (Ability a : meleeList) {
+				System.out.println(i + ") " + a);
+				i++;
+			}
 			System.out.print("Enter a number: ");
 			int pick = input.nextInt();
 			melee = meleeList.get(pick - 1);
@@ -63,7 +65,11 @@ public class AbilitySet extends General {
 				num = input.nextInt();
 			}
 			System.out.println("Pick an ability to swap with.");
-			printList(spellList);
+			int i = 1;
+			for (Ability a : spellList) {
+				System.out.println(i + ") " + a);
+				i++;
+			}
 			System.out.print("Enter a number: ");
 			int pick = input.nextInt();
 			if (num == 1) {

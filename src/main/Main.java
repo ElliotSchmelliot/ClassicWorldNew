@@ -14,21 +14,19 @@ public class Main extends General {
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, FileNotFoundException {
 		printIntro();
 		Character champ = new Character();
-
 		
 		/*List<Ability> blackDragonA = new ArrayList<Ability>();
-
 		blackDragonA.add(new Ability("Fire Breath", -10));
 		blackDragonA.add(new Ability("Claw Slash", -8));
 		blackDragonA.add(new Ability("Consume Nearby Peasants", 12));
 		List<Item> blackDragonI = new ArrayList<Item>();
 		blackDragonI.add(new Sword("DragonSlayer", 5, 5, new Ability("Slash", -5), new Ability("Fire Slash", -5)));
-
+		
 		List<Ability> babyDragonA = new ArrayList<Ability>();
 		babyDragonA.add(new Ability("Chew", -5));
 		List<Item> babyDragonI = new ArrayList<Item>();
 		babyDragonI.add(new Consumable("Dragon Teeth", 1, 10));
-
+		
 		List<Monster> dungeon = new ArrayList<Monster>();
 		dungeon.add(new Dragon("The Black Dragon", 10, blackDragonA, blackDragonI));
 		dungeon.add(new Dragon("Baby Dragon", 2, babyDragonA, babyDragonI));
@@ -62,9 +60,7 @@ public class Main extends General {
 		boolean roundStun = false;
 		while (fight) {
 			System.out.println(champ.name + "'s health: " + champ.healthCurrent);
-			for (Monster e : enemies) {
-				System.out.println(e.name + "'s health: " + e.healthCurrent);
-			}
+			System.out.println(enemy.name + "'s health: " + enemy.healthCurrent);
 			System.out.print("\nWould you like to (R)un, (F)ight, or (V)iew Info? " );
 			String choice = "";
 			while (!choice.equals("F") && !choice.equals("R") && !choice.equals("V")) {
@@ -72,11 +68,6 @@ public class Main extends General {
 			} 
 			System.out.println();
 			if (choice.equals("F")) {
-				Monster e = null;
-				System.out.println("Which enemy would you like to attack?");
-				printList(enemies);
-				System.out.print("Select a number: ");
-				e = enemies.get(champ.input.nextInt() - 1);
 				int attackNum = 0;
 				while (attackNum < 1 || attackNum > 6) {
 					System.out.print(champ.equippedAbilities);
@@ -87,14 +78,14 @@ public class Main extends General {
 				Ability attack = champ.equippedAbilities.getAbility(attackNum);
 				int power = attack.power;
 				roundStun = attack.stun;
-				if (power < 0) {
-					fight = e.damage(champ.name, attack.name, e.name, -power);
+				if(power < 0) {
+					fight = enemy.damage(champ.name, attack.name, enemy.name, -power);
 				} else { //power > 0
 					champ.heal(champ.name, attack.name, power);
 				}
 			} else if (choice.equals("R")) {
 				int temp = r.nextInt(2);
-				if (temp == 0) {
+				if(temp == 0) {
 					fight = false;
 					System.out.println("You ran away...Like little bitch!");
 				} else {
@@ -122,7 +113,7 @@ public class Main extends General {
 					}
 				}
 			} 
-
+			
 			//Enemy retaliation
 			if (enemy.healthCurrent > 0 && fight && (choice.equals("F") || choice.equals("R"))) {
 				if (roundStun) {

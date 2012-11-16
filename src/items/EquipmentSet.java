@@ -71,20 +71,12 @@ public class EquipmentSet {
 		return replace;
 	}
 
-	public String toString() {
-		String equipmentString = "";
+	public void getEquipment() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
 		int i = 1;
 		for (Field f : EquipmentSet.class.getFields()) {
-			if (!f.getType().isPrimitive()) {
-				try {
-					equipmentString += i + ") " + f.getName() + ": " + f.get(this) + "\n";
-				} catch (IllegalArgumentException e) {
-				} catch (IllegalAccessException e) {
-				}
-				i++;
-			}
+			System.out.println(i + ") " + f.getName() + f.get(this));
+			i++;
 		}
-		return equipmentString;
 	}
 
 }

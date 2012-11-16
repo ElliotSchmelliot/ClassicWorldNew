@@ -47,6 +47,14 @@ public class Character extends Mob {
 		inventory.add(new Consumable("Chrome Garbage Can", 1, 100)); //Monetary value only
 	}
 	
+	public void getInventory() {
+		int count = 1;
+		for (Item item : inventory) {
+			System.out.println(count + ") " + item.name);
+			count++;
+		}
+	}
+	
 	public void addToInventory(Item add) {
 		inventory.add(add);
 		if (inventory.size() > 10) {
@@ -93,6 +101,13 @@ public class Character extends Mob {
 			healthCurrent = healthMax;
 		}
 		
+	}
+	
+	public void printList(List<Ability> list) {
+		int i = 1;
+		for (Ability a : list) {
+			System.out.println(i + ") " + a);
+		}
 	}
 	
 	public int defend() {
