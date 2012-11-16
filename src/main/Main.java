@@ -13,13 +13,23 @@ public class Main extends General {
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
 		printIntro();
 		Character champ = new Character();
-		List<Ability> a = new ArrayList<Ability>();
-		a.add(new Ability("Fire Breath", -10));
-		a.add(new Ability("Claw Slash", -8));
-		a.add(new Ability("Consume Nearby Peasants", 12));
-		List<Item> i = new ArrayList<Item>();
-		i.add(new Sword("DragonSlayer", 5, 5, new Ability("Slash", -5), new Ability("Fire Slash", -5)));
-		fight(champ, new Dragon("The Black Dragon", 100, champ.level, a, i));
+		
+		List<Ability> blackDragonA = new ArrayList<Ability>();
+		blackDragonA.add(new Ability("Fire Breath", -10));
+		blackDragonA.add(new Ability("Claw Slash", -8));
+		blackDragonA.add(new Ability("Consume Nearby Peasants", 12));
+		List<Item> blackDragonI = new ArrayList<Item>();
+		blackDragonI.add(new Sword("DragonSlayer", 5, 5, new Ability("Slash", -5), new Ability("Fire Slash", -5)));
+		
+		List<Ability> babyDragonA = new ArrayList<Ability>();
+		babyDragonA.add(new Ability("Chew", -5));
+		List<Item> babyDragonI = new ArrayList<Item>();
+		babyDragonI.add(new Consumable("Dragon Teeth", 1, 10));
+		
+		List<Monster> dungeon = new ArrayList<Monster>();
+		dungeon.add(new Dragon("The Black Dragon", 10, blackDragonA, blackDragonI));
+		dungeon.add(new Dragon("Baby Dragon", 2, babyDragonA, babyDragonI));
+		fight(champ, dungeon);
 	}
 
 	public static void printIntro() {
@@ -29,7 +39,7 @@ public class Main extends General {
 		System.out.println();
 	}
 
-	public static void fight(Character champ, Monster enemy) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
+	public static void fight(Character champ, List<Monster> enemies) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
 		Random r = new Random();
 		boolean fight = true;
 		boolean roundStun = false;

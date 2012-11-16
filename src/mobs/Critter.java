@@ -1,25 +1,24 @@
 package mobs;
 
 import items.*;
-import java.util.List;
 import abilities.*;
+import java.util.List;
 
-public class Dragon extends Monster {
-	
-	public Dragon(String name, int level) {
+public class Critter extends Monster {
+
+	public Critter(String name, int level) {
 		this.name = name;
 		this.level = level;
-		healthMax = 10 * level;
+		healthMax = 2 * level;
 		healthCurrent = healthMax;
 	}
 	
-	public Dragon(String name, int level, List<Ability> attacks, List<Item> inventory) {
+	public Critter(String name, int level, List<Ability> attacks, List<Item> inventory) {
 		this.name = name;
 		this.level = level;
-		healthMax = 10 * level;
+		healthMax = 2 * level;
 		healthCurrent = healthMax;
 		this.attacks = attacks;
 		this.inventory = inventory;
 	}
-	
 }
