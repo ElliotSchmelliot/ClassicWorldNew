@@ -29,4 +29,12 @@ public abstract class Mob {
 		return true;
 	}
 	
+	public void getInventory() {
+		int count = 1;
+		for (Item item : inventory) {
+			System.out.println(count + ") " + item.name);
+			count++;
+		}
+	}
+	
 }
