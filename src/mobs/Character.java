@@ -21,6 +21,7 @@ public class Character extends Mob {
 	public Scanner input;
 	public EquipmentSet equipment;
 	public AbilitySet equippedAbilities;
+	public int inventorySize = 10;
 
 	public Character() {
 		input = new Scanner(System.in);
@@ -57,7 +58,7 @@ public class Character extends Mob {
 	
 	public void addToInventory(Item add) {
 		inventory.add(add);
-		if (inventory.size() > 10) {
+		if (inventory.size() > inventorySize) {
 			System.out.println("Too many items in inventory.");
 			System.out.println("Pick one to drop.");
 			getInventory();

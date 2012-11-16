@@ -10,6 +10,7 @@ import items.*;
 
 public class MonsterSpawner {
 	public List<Monster> dungeon = new ArrayList<Monster>();
+	public List<Item> loot = new ArrayList<Item>();
 	
 	public MonsterSpawner(String fileName) throws FileNotFoundException {
 		Monster temp = null;
@@ -32,23 +33,54 @@ public class MonsterSpawner {
 			}
 			
 			String[] lootInfo = creatureInfo[4].split(",");
-			for (int i = 0; i < attackInfo.length; i++) {
+			for (int i = 0; i < lootInfo.length; i++) {
 				if (lootInfo[i].trim().equals("Consumable")) {
 					inventoryTemp.add(new Consumable(lootInfo[i + 1].trim(), Integer.parseInt(lootInfo[i + 2].trim()), Integer.parseInt(lootInfo[i + 3].trim())));
 					i+=3;
 				}
 			}
-
-			for (Ability aaa : attacksTemp) {
-				temp.attacks.add(aaa);
+			if (temp != null) {
+				for (Ability aaa : attacksTemp) {
+					temp.attacks.add(aaa); //
+				}
+				attacksTemp.clear();
+				for (Item iii : inventoryTemp) {
+					temp.inventory.add(iii);
+				}
+				inventoryTemp.clear();
+				dungeon.add(temp);
+				temp = null;
 			}
-			attacksTemp.clear();
-			for (Item iii : inventoryTemp) {
-				temp.inventory.add(iii);
-			}
-			inventoryTemp.clear();
-			dungeon.add(temp);
-			temp = null;
 		}
+		//The Loot:
+		for (Monster m : dungeon) {
+			for (Item item : m.inventory) {
+				loot.add(item);
+			}
+		}
+	}
+	
+	public void printMonsters() {
+		for (int i = 0; i < dungeon.size(); i++) {
+			System.out.println(dungeon.get(i).name + "'s health: " + dungeon.get(i).healthCurrent);
+		}
+	}
+	
+	public void printMonsterIndexes() {
+		System.out.println("Current Monsters:");
+		for (int i = 0; i < dungeon.size(); i++) {
+			System.out.println(i + 1 + ") " + dungeon.get(i).name + "'s health: " + dungeon.get(i).healthCurrent);
+		}
+	}
+	
+	public void printLoot() {
+		System.out.println("THE LOOT:");
+		for (int i = 0; i < loot.size(); i++) {
+			System.out.println(i + 1 + ") " + loot.get(i).name);
+		}
+	}
+	
+	public Monster getMonster(int index) {
+		return dungeon.get(index);
 	}
 }

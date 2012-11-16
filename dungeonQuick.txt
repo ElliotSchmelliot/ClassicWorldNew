@@ -1,0 +1,1 @@
+Critter:Rabbit:1:Look Cute, -1:Consumable, Rabbit Fur, 1, 5, Consumable, Rabbit Foot, 1, 20, Consumable, Rabbit Meat, 1, 15, Consumable, Bloody Coin, 1, 1
