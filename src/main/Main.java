@@ -1,5 +1,6 @@
 package main;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,11 +11,11 @@ import mobs.*;
 import items.*;
 
 public class Main extends General {
-	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
+	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, FileNotFoundException {
 		printIntro();
 		Character champ = new Character();
 		
-		List<Ability> blackDragonA = new ArrayList<Ability>();
+		/*List<Ability> blackDragonA = new ArrayList<Ability>();
 		blackDragonA.add(new Ability("Fire Breath", -10));
 		blackDragonA.add(new Ability("Claw Slash", -8));
 		blackDragonA.add(new Ability("Consume Nearby Peasants", 12));
@@ -29,7 +30,21 @@ public class Main extends General {
 		List<Monster> dungeon = new ArrayList<Monster>();
 		dungeon.add(new Dragon("The Black Dragon", 10, blackDragonA, blackDragonI));
 		dungeon.add(new Dragon("Baby Dragon", 2, babyDragonA, babyDragonI));
-		fight(champ, dungeon);
+		*/
+		MonsterSpawner dungeonTest = new MonsterSpawner("dungeonTest.txt");
+		for (Monster m : dungeonTest.dungeon) {
+			System.out.print("name: " + m.name + " level:" + m.level);
+			System.out.println();
+			for (Ability a : m.attacks) {
+				System.out.print("ability: " + a.name + " " + a.power + " ");
+			}
+			System.out.println();
+			for (Item i : m.inventory) {
+				System.out.print("item: " + i.name + " ");
+			}
+			System.out.println();
+		}
+		//fight(champ, dungeon);
 	}
 
 	public static void printIntro() {
@@ -39,7 +54,7 @@ public class Main extends General {
 		System.out.println();
 	}
 
-	public static void fight(Character champ, List<Monster> enemies) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
+	public static void fight(Character champ, List<Monster> enemies) throws IllegalArgumentException, IllegalAccessException {
 		Random r = new Random();
 		boolean fight = true;
 		boolean roundStun = false;
@@ -89,7 +104,7 @@ public class Main extends General {
 						champ.getInventory();
 						System.out.println();
 					} else if (choice2.equals("E")) { 
-						champ.equipment.getEquipment();
+						System.out.println(champ.equipment);
 						System.out.println();
 					} else if (choice2.equals("A")) {
 						//View abilities
