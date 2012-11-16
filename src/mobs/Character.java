@@ -95,13 +95,6 @@ public class Character extends Mob {
 		
 	}
 	
-	public void printList(List<Ability> list) {
-		int i = 1;
-		for (Ability a : list) {
-			System.out.println(i + ") " + a);
-		}
-	}
-	
 	public int defend() {
 		int total = 0;
 		total += equipment.helmet.use();
