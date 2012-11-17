@@ -27,18 +27,23 @@ public class MonsterSpawner {
 				temp = new Critter(creatureInfo[1].trim(), Integer.parseInt(creatureInfo[2].trim()));	
 			}
 			
-			String[] attackInfo = creatureInfo[3].split(",");
-			for (int i = 0; i < attackInfo.length; i+=2) {
-				attacksTemp.add(new Ability(attackInfo[i].trim(), Integer.parseInt(attackInfo[i + 1].trim())));
-			}
-			
-			String[] lootInfo = creatureInfo[4].split(",");
-			for (int i = 0; i < lootInfo.length; i++) {
-				if (lootInfo[i].trim().equals("Consumable")) {
-					inventoryTemp.add(new Consumable(lootInfo[i + 1].trim(), Integer.parseInt(lootInfo[i + 2].trim()), Integer.parseInt(lootInfo[i + 3].trim())));
-					i+=3;
+			if (creatureInfo.length > 3) {
+				String[] attackInfo = creatureInfo[3].split(",");
+				for (int i = 0; i < attackInfo.length; i+=2) {
+					attacksTemp.add(new Ability(attackInfo[i].trim(), Integer.parseInt(attackInfo[i + 1].trim())));
 				}
 			}
+			
+			if (creatureInfo.length > 4) {
+				String[] lootInfo = creatureInfo[4].split(",");
+				for (int i = 0; i < lootInfo.length; i++) {
+					if (lootInfo[i].trim().equals("Consumable")) {
+						inventoryTemp.add(new Consumable(lootInfo[i + 1].trim(), Integer.parseInt(lootInfo[i + 2].trim()), Integer.parseInt(lootInfo[i + 3].trim())));
+						i+=3;
+					}
+				}
+			}
+			
 			if (temp != null) {
 				for (Ability aaa : attacksTemp) {
 					temp.attacks.add(aaa); //

@@ -15,8 +15,13 @@ public class Dragon extends Monster {
 		healthCurrent = healthMax;
 		attacks = new ArrayList<Ability>();
 		inventory = new ArrayList<Item>();
+		attacks.add(new Ability("Fire Breath", -5 * level));
+		attacks.add(new Ability("Wing Buffet", -3 * level));
+		attacks.add(new Ability("Claw Slash", -4 * level));
+		attacks.add(new Ability("Consume Nearby Peasants", 5 * level));
 	}
 	
+	//Don't use this constructor unless testing
 	public Dragon(String name, int level, List<Ability> attacks, List<Item> inventory) {
 		this.name = name;
 		this.level = level;

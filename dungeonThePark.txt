@@ -1,0 +1,7 @@
+Critter:Cute Squirrel:1
+Critter:Fluffy Squirrel:1
+Critter:Vicious Squirrel:2:Gnaw, -5
+Critter:Rabid Squirrel:3:Rabies, -8
+Critter:Diseased Squirrel:3
+Critter:Park Squirrel:1
+Critter:Squirrel Thug:5:Get Money, -12, Snort Peanut, 10

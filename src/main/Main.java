@@ -16,7 +16,7 @@ public class Main extends General {
 		Character champ = new Character();
 //test commit / push
 		//git commit -m "commit message"
-		MonsterSpawner dungeonTest = new MonsterSpawner("dungeonQuick.txt");
+		MonsterSpawner dungeonTest = new MonsterSpawner("dungeonThePark.txt");
 		fight(champ, dungeonTest);
 	}
 
@@ -100,20 +100,25 @@ public class Main extends General {
 			//Loot
 			if (fight && spawner.dungeon.size() == 0) {
 				fight = false;
-				int lootNum = r.nextInt(spawner.loot.size() + 1) + 1;
-				while (lootNum > 0) {
-					System.out.println();
-					spawner.printLoot();
-					System.out.print("Select an item to loot (" + lootNum + " loots left):");
-					int lootChoice = 0;
-					while (lootChoice < 1 || lootChoice > spawner.loot.size()) {
-						lootChoice = champ.input.nextInt();
+				if (spawner.loot.size() > 0) {
+					int lootNum = r.nextInt(spawner.loot.size() + 1) + 1;
+					while (lootNum > 0) {
+						System.out.println();
+						spawner.printLoot();
+						System.out.print("Select an item to loot (" + lootNum + " loots left):");
+						int lootChoice = 0;
+						while (lootChoice < 1 || lootChoice > spawner.loot.size()) {
+							lootChoice = champ.input.nextInt();
+						}
+						System.out.println("You loot " + spawner.loot.get(lootChoice - 1));
+						champ.inventory.add(spawner.loot.get(lootChoice - 1));
+						spawner.loot.remove(lootChoice - 1);
+						lootNum--;
+						System.out.println(champ.inventory);
 					}
-					System.out.println("You loot " + spawner.loot.get(lootChoice - 1));
-					champ.inventory.add(spawner.loot.get(lootChoice - 1));
-					spawner.loot.remove(lootChoice - 1);
-					lootNum--;
-					System.out.println(champ.inventory);
+				} else {
+					System.out.println();
+					System.out.println("No loot was found...");
 				}
 			}
 			
