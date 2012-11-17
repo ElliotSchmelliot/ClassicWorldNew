@@ -14,7 +14,8 @@ public class Main extends General {
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, FileNotFoundException {
 		printIntro();
 		Character champ = new Character();
-
+//test commit / push
+		//git commit -m "commit message"
 		MonsterSpawner dungeonTest = new MonsterSpawner("dungeonQuick.txt");
 		fight(champ, dungeonTest);
 	}
