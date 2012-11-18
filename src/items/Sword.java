@@ -4,10 +4,11 @@ import abilities.Ability;
 
 public class Sword extends Weapon {
 
-	public Sword(String name, int attack, int quality, Ability primary, Ability secondary) {
+	public Sword(String name, int quality, int value, Ability primary, Ability secondary) {
 		this.name = name;
-		this.attack = attack + quality;
+		this.attack = 3 * quality;
 		this.quality = quality;
+		this.value = value;
 		this.primary = primary;
 		this.secondary = secondary;
 		durability = 1000;

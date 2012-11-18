@@ -8,6 +8,7 @@ import abilities.Ability;
 
 public abstract class Monster extends Mob {
 	public List<Ability> attacks;
+	public int expValue;
 	
 	public Ability getAbility() {
 		Random pick = new Random();

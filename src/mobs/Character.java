@@ -8,16 +8,15 @@ import abilities.*;
 
 
 public class Character extends Mob {
-	public int exp;
+	public int expCurrent;
+	public int expMax;
 	public int strength;
 	public int intelligence;
 	public int coin;
-	// int agility;
 	public List<Ability> melee;
 	public List<Ability> spell;
 	public List<Ability> masterMelee;
 	public List<Ability> masterSpell;
-	// List<Ability> masterStealth;
 	public Scanner input;
 	public EquipmentSet equipment;
 	public AbilitySet equippedAbilities;
@@ -29,10 +28,10 @@ public class Character extends Mob {
 		name = input.next().trim();
 		System.out.println();
 		level = 1;
-		exp = 0;
+		expCurrent = 0;
+		expMax = 100;
 		strength = 1;
 		intelligence = 1;
-		// agility = 1;
 		level = 1;
 		healthMax = 100;
 		coin = 50;
@@ -78,10 +77,17 @@ public class Character extends Mob {
 		addToInventory(equipment.equip(inventory.get(input.nextInt() - 1), equippedAbilities));
 	}
 	
+	public void expGain(int exp) {
+		expCurrent += exp;
+		while (expCurrent > expMax) { //In case multiple levels are gained from one fight
+			level();
+			expCurrent = expCurrent - expMax;
+			expMax *= 2;
+		}
+	}
 	public void level() {
-		exp = 0;
 		level++;
-		
+		System.out.println("You are now level " + level + "!");
 		String choice = "";
 		while (!choice.equals("intelligence") && !choice.equals("strength")) {
 			System.out.println("Increase intelligence or strength: ");

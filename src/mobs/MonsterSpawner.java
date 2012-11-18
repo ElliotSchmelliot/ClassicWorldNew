@@ -11,6 +11,7 @@ import items.*;
 public class MonsterSpawner {
 	public List<Monster> dungeon = new ArrayList<Monster>();
 	public List<Item> loot = new ArrayList<Item>();
+	public int totalExp;
 	
 	public MonsterSpawner(String fileName) throws FileNotFoundException {
 		Monster temp = null;
@@ -21,21 +22,22 @@ public class MonsterSpawner {
 			String line = fileScan.nextLine();
 			Scanner lineScan = new Scanner(line);
 			String[] creatureInfo = line.split(":");
-			if (creatureInfo[0].trim().equals("Dragon")) {
-				temp = new Dragon(creatureInfo[1].trim(), Integer.parseInt(creatureInfo[2].trim()));
-			} else if (creatureInfo[0].trim().equals("Critter")) {
-				temp = new Critter(creatureInfo[1].trim(), Integer.parseInt(creatureInfo[2].trim()));	
+			String[] monsterInfo = creatureInfo[0].split(",");
+			if (monsterInfo[0].trim().equals("Dragon")) {
+				temp = new Dragon(monsterInfo[1].trim(), Integer.parseInt(monsterInfo[2].trim()));
+			} else if (monsterInfo[0].trim().equals("Critter")) {
+				temp = new Critter(monsterInfo[1].trim(), Integer.parseInt(monsterInfo[2].trim()));	
 			}
 			
-			if (creatureInfo.length > 3) {
-				String[] attackInfo = creatureInfo[3].split(",");
+			if (creatureInfo.length > 1) {
+				String[] attackInfo = creatureInfo[1].split(",");
 				for (int i = 0; i < attackInfo.length; i+=2) {
 					attacksTemp.add(new Ability(attackInfo[i].trim(), Integer.parseInt(attackInfo[i + 1].trim())));
 				}
 			}
 			
-			if (creatureInfo.length > 4) {
-				String[] lootInfo = creatureInfo[4].split(",");
+			if (creatureInfo.length > 2) {
+				String[] lootInfo = creatureInfo[2].split(",");
 				for (int i = 0; i < lootInfo.length; i++) {
 					if (lootInfo[i].trim().equals("Consumable")) {
 						inventoryTemp.add(new Consumable(lootInfo[i + 1].trim(), Integer.parseInt(lootInfo[i + 2].trim()), Integer.parseInt(lootInfo[i + 3].trim())));
@@ -57,8 +59,9 @@ public class MonsterSpawner {
 				temp = null;
 			}
 		}
-		//The Loot:
+		//The Loot and EXP
 		for (Monster m : dungeon) {
+			totalExp += m.expValue;
 			for (Item item : m.inventory) {
 				loot.add(item);
 			}

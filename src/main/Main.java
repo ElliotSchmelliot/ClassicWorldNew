@@ -14,9 +14,8 @@ public class Main extends General {
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, FileNotFoundException {
 		printIntro();
 		Character champ = new Character();
-//test commit / push
-		//git commit -m "commit message"
-		MonsterSpawner dungeonTest = new MonsterSpawner("dungeonThePark.txt");
+		//gameLoop(champ);
+		MonsterSpawner dungeonTest = new MonsterSpawner("dungeonTest.txt");
 		fight(champ, dungeonTest);
 	}
 
@@ -27,6 +26,14 @@ public class Main extends General {
 		System.out.println();
 	}
 
+	public static void gameLoop(Character champ) {
+		System.out.println("Where would you like to go: (S)hop, (I)nn, or (Q)uest?");
+		String choice = "";
+		while (!choice.equals("S") && !choice.equals("I") && !choice.equals("Q")) {
+			choice = champ.input.next().toUpperCase().trim();
+		}
+	}
+	
 	public static void fight(Character champ, MonsterSpawner spawner) throws IllegalArgumentException, IllegalAccessException {
 		Random r = new Random();
 		boolean fight = true;
@@ -97,11 +104,13 @@ public class Main extends General {
 				}
 			} 
 			
-			//Loot
+			//Loot and EXP
 			if (fight && spawner.dungeon.size() == 0) {
+				System.out.println("You gain " + spawner.totalExp + " experience!");
+				champ.expGain(spawner.totalExp);
 				fight = false;
 				if (spawner.loot.size() > 0) {
-					int lootNum = r.nextInt(spawner.loot.size() + 1) + 1;
+					int lootNum = r.nextInt(spawner.loot.size()) + 1;
 					while (lootNum > 0) {
 						System.out.println();
 						spawner.printLoot();
@@ -129,7 +138,7 @@ public class Main extends General {
 					int power = attack.power;
 					if(power < 0) {
 						double armor = (double)champ.defend() / 100;
-						champ.damage(attacker.name, attack.name, champ.name, -power - (int)((double)-power * armor)); //roundUp((double)-power / (100 / champ.defend())));
+						champ.damage(attacker.name, attack.name, champ.name, -power - (int)((double)-power * armor));
 						if (champ.healthCurrent <= 0 ) {
 							fight = false;
 						}

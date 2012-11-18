@@ -11,6 +11,7 @@ public class Critter extends Monster {
 	public Critter(String name, int level) {
 		this.name = name;
 		this.level = level;
+		expValue = 5* level;
 		healthMax = 4 * level;
 		healthCurrent = healthMax;
 		attacks = new ArrayList<Ability>();
@@ -23,6 +24,7 @@ public class Critter extends Monster {
 	public Critter(String name, int level, List<Ability> attacks, List<Item> inventory) {
 		this.name = name;
 		this.level = level;
+		expValue = 5 * level;
 		healthMax = 4 * level;
 		healthCurrent = healthMax;
 		this.attacks = attacks;
