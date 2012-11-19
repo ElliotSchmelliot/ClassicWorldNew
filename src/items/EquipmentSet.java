@@ -46,7 +46,7 @@ public class EquipmentSet {
 				}
 			}
 		} catch (IllegalArgumentException e) {
-			System.out.println("Item cannot be equipped");
+			System.out.println("Item cannot be equipped.");
 			return equipping;
 		} catch (IllegalAccessException e) {
 			// won't happen

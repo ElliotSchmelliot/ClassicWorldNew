@@ -14,37 +14,9 @@ public class Main extends General {
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, FileNotFoundException {
 		printIntro();
 		Character champ = new Character();
-		
-		/*List<Ability> blackDragonA = new ArrayList<Ability>();
-		blackDragonA.add(new Ability("Fire Breath", -10));
-		blackDragonA.add(new Ability("Claw Slash", -8));
-		blackDragonA.add(new Ability("Consume Nearby Peasants", 12));
-		List<Item> blackDragonI = new ArrayList<Item>();
-		blackDragonI.add(new Sword("DragonSlayer", 5, 5, new Ability("Slash", -5), new Ability("Fire Slash", -5)));
-		
-		List<Ability> babyDragonA = new ArrayList<Ability>();
-		babyDragonA.add(new Ability("Chew", -5));
-		List<Item> babyDragonI = new ArrayList<Item>();
-		babyDragonI.add(new Consumable("Dragon Teeth", 1, 10));
-		
-		List<Monster> dungeon = new ArrayList<Monster>();
-		dungeon.add(new Dragon("The Black Dragon", 10, blackDragonA, blackDragonI));
-		dungeon.add(new Dragon("Baby Dragon", 2, babyDragonA, babyDragonI));
-		*/
+		//gameLoop(champ);
 		MonsterSpawner dungeonTest = new MonsterSpawner("dungeonTest.txt");
-		for (Monster m : dungeonTest.dungeon) {
-			System.out.print("name: " + m.name + " level:" + m.level);
-			System.out.println();
-			for (Ability a : m.attacks) {
-				System.out.print("ability: " + a.name + " " + a.power + " ");
-			}
-			System.out.println();
-			for (Item i : m.inventory) {
-				System.out.print("item: " + i.name + " ");
-			}
-			System.out.println();
-		}
-		//fight(champ, dungeon);
+		fight(champ, dungeonTest);
 	}
 
 	public static void printIntro() {
@@ -54,13 +26,20 @@ public class Main extends General {
 		System.out.println();
 	}
 
-	public static void fight(Character champ, List<Monster> enemies) throws IllegalArgumentException, IllegalAccessException {
+	public static void gameLoop(Character champ) {
+		System.out.println("Where would you like to go: (S)hop, (I)nn, or (Q)uest?");
+		String choice = "";
+		while (!choice.equals("S") && !choice.equals("I") && !choice.equals("Q")) {
+			choice = champ.input.next().toUpperCase().trim();
+		}
+	}
+	
+	public static void fight(Character champ, MonsterSpawner spawner) throws IllegalArgumentException, IllegalAccessException {
 		Random r = new Random();
 		boolean fight = true;
-		boolean roundStun = false;
 		while (fight) {
 			System.out.println(champ.name + "'s health: " + champ.healthCurrent);
-			System.out.println(enemy.name + "'s health: " + enemy.healthCurrent);
+			spawner.printMonsters();
 			System.out.print("\nWould you like to (R)un, (F)ight, or (V)iew Info? " );
 			String choice = "";
 			while (!choice.equals("F") && !choice.equals("R") && !choice.equals("V")) {
@@ -68,6 +47,15 @@ public class Main extends General {
 			} 
 			System.out.println();
 			if (choice.equals("F")) {
+				Monster target = null;
+				int choiceNum = 0;
+				spawner.printMonsterIndexes();
+				System.out.print("Select a monster to attack: ");
+				while (choiceNum < 1 || choiceNum > spawner.dungeon.size()) {
+					choiceNum = champ.input.nextInt();
+				}
+				target = spawner.getMonster(choiceNum - 1);
+				System.out.println();
 				int attackNum = 0;
 				while (attackNum < 1 || attackNum > 6) {
 					System.out.print(champ.equippedAbilities);
@@ -77,9 +65,11 @@ public class Main extends General {
 				System.out.println();
 				Ability attack = champ.equippedAbilities.getAbility(attackNum);
 				int power = attack.power;
-				roundStun = attack.stun;
 				if(power < 0) {
-					fight = enemy.damage(champ.name, attack.name, enemy.name, -power);
+					target.damage(champ.name, attack.name, target.name, -power);
+					if (target.healthCurrent <= 0) {
+						spawner.dungeon.remove(spawner.dungeon.indexOf(target));
+					}
 				} else { //power > 0
 					champ.heal(champ.name, attack.name, power);
 				}
@@ -114,24 +104,50 @@ public class Main extends General {
 				}
 			} 
 			
-			//Enemy retaliation
-			if (enemy.healthCurrent > 0 && fight && (choice.equals("F") || choice.equals("R"))) {
-				if (roundStun) {
-					System.out.println(enemy.name + " is stunned!");
-					roundStun = false;
+			//Loot and EXP
+			if (fight && spawner.dungeon.size() == 0) {
+				System.out.println("You gain " + spawner.totalExp + " experience!");
+				champ.expGain(spawner.totalExp);
+				fight = false;
+				if (spawner.loot.size() > 0) {
+					int lootNum = r.nextInt(spawner.loot.size()) + 1;
+					while (lootNum > 0) {
+						System.out.println();
+						spawner.printLoot();
+						System.out.print("Select an item to loot (" + lootNum + " loots left):");
+						int lootChoice = 0;
+						while (lootChoice < 1 || lootChoice > spawner.loot.size()) {
+							lootChoice = champ.input.nextInt();
+						}
+						System.out.println("You loot " + spawner.loot.get(lootChoice - 1));
+						champ.inventory.add(spawner.loot.get(lootChoice - 1));
+						spawner.loot.remove(lootChoice - 1);
+						lootNum--;
+						System.out.println(champ.inventory);
+					}
 				} else {
-					Ability attack = enemy.getAbility();
+					System.out.println();
+					System.out.println("No loot was found...");
+				}
+			}
+			
+			//Enemy retaliation
+			if (fight && (choice.equals("F") || choice.equals("R"))) {
+				for (Monster attacker : spawner.dungeon) {
+					Ability attack = attacker.getAbility();
 					int power = attack.power;
 					if(power < 0) {
-						fight = champ.damage(enemy.name, attack.name, champ.name, roundUp((double)-power / (100 / champ.defend())));
+						double armor = (double)champ.defend() / 100;
+						champ.damage(attacker.name, attack.name, champ.name, -power - (int)((double)-power * armor));
+						if (champ.healthCurrent <= 0 ) {
+							fight = false;
+						}
 					} else {
-						enemy.heal(enemy.name, attack.name, power);
+						attacker.heal(attacker.name, attack.name, power);
 					}
 				}
-				System.out.println();
 			}
-
+			System.out.println();
 		}
-		//Loot the bodies!!
 	}
 }

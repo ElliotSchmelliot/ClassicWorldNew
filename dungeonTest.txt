@@ -1,3 +1,3 @@
-Dragon:The Black Dragon:10:Fire breath, -10, Claw Slash, -8, Consume Nearby Peasants, 12:Consumable, Special Brownies, 1, 25, Consumable, Vitamin Water, 1, 15
-Dragon:Baby Dragon:2:Peck, -4, Sleep, 20:Consumable, Dragon scale, 1, 15
-Dragon:Baby Dragon2:2:Scratch, -5, Sleep, 20:Consumable, Dragon tooth, 1, 20
+Dragon, The Black Dragon, 3:Fire Storm, -16, Consume Nearby Village, 20:Consumable, Special Brownies, 1, 25, Consumable, Vitamin Water, 1, 15
+Dragon, Baby Dragon, 1:Peck, -4, Drive-by, -10, Sleep, 10:Consumable, Dragon scale, 1, 15
+Dragon, Whelpling, 1:Wail, -5, Wing slap, -7, Sleep, 10:Consumable, Dragon tooth, 1, 20
