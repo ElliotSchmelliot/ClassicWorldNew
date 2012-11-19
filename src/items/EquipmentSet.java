@@ -46,7 +46,7 @@ public class EquipmentSet {
 				}
 			}
 		} catch (IllegalArgumentException e) {
-			System.out.println("Item cannot be equipped");
+			System.out.println("Item cannot be equipped.");
 			return equipping;
 		} catch (IllegalAccessException e) {
 			// won't happen
@@ -71,12 +71,19 @@ public class EquipmentSet {
 		return replace;
 	}
 
-	public void getEquipment() throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException {
+	public String toString() {
+		String equipmentString = "";
 		int i = 1;
 		for (Field f : EquipmentSet.class.getFields()) {
-			System.out.println(i + ") " + f.getName() + f.get(this));
-			i++;
+			if (!f.getType().isPrimitive()) {
+				try {
+					equipmentString += i + ") " + f.getName() + ": " + f.get(this) + "\n";
+				} catch (IllegalArgumentException e) {
+				} catch (IllegalAccessException e) {
+				}
+				i++;
+			}
 		}
+		return equipmentString;
 	}
-
 }

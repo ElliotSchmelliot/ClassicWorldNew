@@ -8,30 +8,32 @@ import abilities.*;
 
 
 public class Character extends Mob {
-	public int exp;
+	public int expCurrent;
+	public int expMax;
 	public int strength;
 	public int intelligence;
 	public int coin;
-	// int agility;
 	public List<Ability> melee;
 	public List<Ability> spell;
 	public List<Ability> masterMelee;
 	public List<Ability> masterSpell;
-	// List<Ability> masterStealth;
 	public Scanner input;
+	public Scanner lineInput;
 	public EquipmentSet equipment;
 	public AbilitySet equippedAbilities;
+	public int inventorySize = 10;
 
 	public Character() {
 		input = new Scanner(System.in);
+		lineInput = new Scanner(System.in);
 		System.out.print("Enter a character name: ");
-		name = input.next().trim();
+		name = lineInput.nextLine().trim();
 		System.out.println();
 		level = 1;
-		exp = 0;
+		expCurrent = 0;
+		expMax = 100;
 		strength = 1;
 		intelligence = 1;
-		// agility = 1;
 		level = 1;
 		healthMax = 100;
 		coin = 50;
@@ -47,17 +49,9 @@ public class Character extends Mob {
 		inventory.add(new Consumable("Chrome Garbage Can", 1, 100)); //Monetary value only
 	}
 	
-	public void getInventory() {
-		int count = 1;
-		for (Item item : inventory) {
-			System.out.println(count + ") " + item.name);
-			count++;
-		}
-	}
-	
 	public void addToInventory(Item add) {
 		inventory.add(add);
-		if (inventory.size() > 10) {
+		if (inventory.size() > inventorySize) {
 			System.out.println("Too many items in inventory.");
 			System.out.println("Pick one to drop.");
 			getInventory();
@@ -77,10 +71,18 @@ public class Character extends Mob {
 		addToInventory(equipment.equip(inventory.get(input.nextInt() - 1), equippedAbilities));
 	}
 	
+	public void expGain(int exp) {
+		expCurrent += exp;
+		while (expCurrent > expMax) { //In case multiple levels are gained from one fight
+			level();
+			expCurrent = expCurrent - expMax;
+			expMax *= 2;
+		}
+		System.out.println("Current exp: " + expCurrent + "/" + expMax);
+	}
 	public void level() {
-		exp = 0;
 		level++;
-		
+		System.out.println("You are now level " + level + "!");
 		String choice = "";
 		while (!choice.equals("intelligence") && !choice.equals("strength")) {
 			System.out.println("Increase intelligence or strength: ");
@@ -101,13 +103,6 @@ public class Character extends Mob {
 			healthCurrent = healthMax;
 		}
 		
-	}
-	
-	public void printList(List<Ability> list) {
-		int i = 1;
-		for (Ability a : list) {
-			System.out.println(i + ") " + a);
-		}
 	}
 	
 	public int defend() {
