@@ -8,6 +8,7 @@ import java.util.Random;
 import mobs.Character;
 import abilities.*;
 import mobs.*;
+import items.Shop;
 
 public class Main extends General {
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, FileNotFoundException {
@@ -25,15 +26,60 @@ public class Main extends General {
 
 	public static void gameLoop(Character champ) throws IllegalAccessException, FileNotFoundException {
 		boolean gameContinuing = true;
+		Shop market = null;
 		while (gameContinuing) {
-			System.out.print("Where would you like to go: (S)hop, (I)nn, or (Q)uest?");
+			System.out.print("Where would you like to go: (S)hop, (I)nn, or (Q)uest? ");
 			String choice = "";
 			while (!choice.equals("S") && !choice.equals("I") && !choice.equals("Q")) {
 				choice = champ.input.next().toUpperCase().trim();
 			}
 			System.out.println();
 			if (choice.equals("S")) {
-
+				if (market == null) {
+					market = new Shop(champ.level);
+				}
+				boolean shopping = true;
+				while (shopping) {
+					if (market.stock.size() > 0) {
+						System.out.println("Current money: " + champ.coin);
+					}
+					market.getContents();
+					if (market.stock.size() > 0) {
+						System.out.print("Enter a number to purchase or e(X)it: ");
+						String opChoice = "";
+						boolean validNum = false;
+						int buy = 0;
+						while(!opChoice.equals("X") && !validNum) {
+							try {
+								buy = Integer.parseInt(opChoice);
+								if (buy > 0 && buy <= market.stock.size()) {
+									validNum = true;
+								}
+							} catch (NumberFormatException e) {
+								//It was a String that wasn't "X"
+							}
+							if (!validNum) {
+								opChoice = champ.input.next().toUpperCase().trim();
+							}
+						}
+						if (validNum) {
+							if (champ.coin >= market.stock.get(buy - 1).value) {
+								System.out.println("You purchase " + market.stock.get(buy - 1).name);
+								champ.inventory.add(market.stock.get(buy - 1));
+								champ.coin -= market.stock.get(buy - 1).value;
+								market.stock.remove(buy - 1);
+							} else {
+								System.out.println("You do not have enough money for this item.");
+							}
+						} else {
+							shopping = false;
+						}
+						System.out.println();
+					} else {
+						shopping = false;
+						System.out.println();
+					}
+				}
 			} else if (choice.equals("I")) {
 				String sleep = "";
 				System.out.print("Would you like to sleep for 25 coins? (Y) or (N):");
