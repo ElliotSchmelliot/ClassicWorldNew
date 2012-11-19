@@ -188,6 +188,12 @@ public class Main extends General {
 					if (choice2.equals("I")) {
 						champ.getInventory();
 						System.out.println();
+						System.out.println("Would you like to use/equip an item (Y/N)? ");
+						if (champ.input.next().toUpperCase().equals("Y")) {
+							
+						} else {
+							
+						}
 					} else if (choice2.equals("E")) { 
 						System.out.println(champ.equipment);
 						System.out.println();

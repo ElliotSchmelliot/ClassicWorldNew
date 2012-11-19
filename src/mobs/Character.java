@@ -18,14 +18,16 @@ public class Character extends Mob {
 	public List<Ability> masterMelee;
 	public List<Ability> masterSpell;
 	public Scanner input;
+	public Scanner lineInput;
 	public EquipmentSet equipment;
 	public AbilitySet equippedAbilities;
 	public int inventorySize = 10;
 
 	public Character() {
 		input = new Scanner(System.in);
+		lineInput = new Scanner(System.in);
 		System.out.print("Enter a character name: ");
-		name = input.next().trim();
+		name = lineInput.nextLine().trim();
 		System.out.println();
 		level = 1;
 		expCurrent = 0;
