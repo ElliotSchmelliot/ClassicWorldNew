@@ -37,7 +37,21 @@ public class Main extends General {
 			if (choice.equals("S")) {
 				
 			} else if (choice.equals("I")) {
-				
+				String sleep = "";
+				System.out.print("Would you like to sleep for 25 coins? (Y) or (N):");
+				while (!sleep.equals("Y") && !sleep.equals("N")) {
+					sleep = champ.input.next().toUpperCase().trim();
+				}
+				if (sleep.equals("Y")) {
+					if (champ.coin >= 25) {
+						System.out.println("You sleep and recover all of your health.");
+						champ.coin -= 25;
+						champ.healthCurrent = champ.healthMax;
+					} else {
+						System.out.println("You do not have enough money to spend the night.");
+					}
+				}
+				System.out.println();
 			} else { // ("Q")
 				System.out.println("Currently available quest(s):");
 				String path = "C:\\Users\\Elliot\\Eclipse\\ClassicWorldNew";
