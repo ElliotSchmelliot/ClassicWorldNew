@@ -5,11 +5,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import mobs.Character;
 import abilities.*;
 import mobs.*;
-import items.*;
 
 public class Main extends General {
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, FileNotFoundException {
@@ -35,7 +33,7 @@ public class Main extends General {
 			}
 			System.out.println();
 			if (choice.equals("S")) {
-				
+
 			} else if (choice.equals("I")) {
 				String sleep = "";
 				System.out.print("Would you like to sleep for 25 coins? (Y) or (N):");
@@ -54,8 +52,7 @@ public class Main extends General {
 				System.out.println();
 			} else { // ("Q")
 				System.out.println("Currently available quest(s):");
-				String path = "C:\\Users\\Elliot\\Eclipse\\ClassicWorldNew";
-				File folder = new File(path);
+				File folder = new File(".");
 				File[] allFiles = folder.listFiles();
 				List<File> dungeons = new ArrayList<File>();
 				for (int i = 0; i < allFiles.length; i++) {
@@ -85,7 +82,7 @@ public class Main extends General {
 			}
 		}
 	}
-	
+
 	public static void fight(Character champ, MonsterSpawner spawner) throws IllegalArgumentException, IllegalAccessException {
 		Random r = new Random();
 		boolean fight = true;
@@ -149,13 +146,14 @@ public class Main extends General {
 						System.out.println(champ.equipment);
 						System.out.println();
 					} else if (choice2.equals("A")) {
-						//View abilities
+						System.out.println(champ.equippedAbilities);
+						System.out.println();
 					} else {// ("X")
 						loopView = false;
 					}
 				}
 			} 
-			
+
 			//Loot and EXP
 			if (fight && spawner.dungeon.size() == 0) {
 				System.out.println("You gain " + spawner.totalExp + " experience!");
@@ -182,7 +180,7 @@ public class Main extends General {
 					System.out.println("No loot was found...");
 				}
 			}
-			
+
 			//Enemy retaliation
 			if (fight && (choice.equals("F") || choice.equals("R"))) {
 				for (Monster attacker : spawner.dungeon) {
