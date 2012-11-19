@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,7 @@ public class Main extends General {
 	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, FileNotFoundException {
 		printIntro();
 		Character champ = new Character();
-		//gameLoop(champ);
-		MonsterSpawner dungeonTest = new MonsterSpawner("dungeonTest.txt");
-		fight(champ, dungeonTest);
+		gameLoop(champ);
 	}
 
 	public static void printIntro() {
@@ -26,11 +25,50 @@ public class Main extends General {
 		System.out.println();
 	}
 
-	public static void gameLoop(Character champ) {
-		System.out.println("Where would you like to go: (S)hop, (I)nn, or (Q)uest?");
-		String choice = "";
-		while (!choice.equals("S") && !choice.equals("I") && !choice.equals("Q")) {
-			choice = champ.input.next().toUpperCase().trim();
+	public static void gameLoop(Character champ) throws IllegalAccessException, FileNotFoundException {
+		boolean gameContinuing = true;
+		while (gameContinuing) {
+			System.out.print("Where would you like to go: (S)hop, (I)nn, or (Q)uest?");
+			String choice = "";
+			while (!choice.equals("S") && !choice.equals("I") && !choice.equals("Q")) {
+				choice = champ.input.next().toUpperCase().trim();
+			}
+			System.out.println();
+			if (choice.equals("S")) {
+				
+			} else if (choice.equals("I")) {
+				
+			} else { // ("Q")
+				System.out.println("Currently available quest(s):");
+				String path = "C:\\Users\\Elliot\\Eclipse\\ClassicWorldNew";
+				File folder = new File(path);
+				File[] allFiles = folder.listFiles();
+				List<File> dungeons = new ArrayList<File>();
+				for (int i = 0; i < allFiles.length; i++) {
+					if (allFiles[i].isFile()) {
+						if (allFiles[i].getName().startsWith("dungeon") && allFiles[i].getName().endsWith(".txt")) {
+							dungeons.add(allFiles[i]);
+						}
+					}
+				}
+				for (int i = 0; i < dungeons.size(); i++) {
+					System.out.println(i + 1 + ") " + dungeons.get(i).getName().substring(7, dungeons.get(i).getName().length() - 4));
+				}
+				System.out.print("Select a quest: ");
+				int questChoice = 0;
+				while (questChoice < 1 || questChoice > dungeons.size()) {
+					questChoice = champ.input.nextInt();
+				}
+				System.out.println("You have selected " + dungeons.get(questChoice - 1).getName().substring(7, dungeons.get(questChoice - 1).getName().length() - 4));
+				System.out.println();
+				MonsterSpawner dungeonTest = new MonsterSpawner(dungeons.get(questChoice - 1).getName());
+				fight(champ, dungeonTest);
+				if (champ.healthCurrent <= 0) {
+					gameContinuing = false;
+					System.out.println("Game over!");
+					System.out.println("Better luck next time!");
+				}
+			}
 		}
 	}
 	
@@ -134,16 +172,18 @@ public class Main extends General {
 			//Enemy retaliation
 			if (fight && (choice.equals("F") || choice.equals("R"))) {
 				for (Monster attacker : spawner.dungeon) {
-					Ability attack = attacker.getAbility();
-					int power = attack.power;
-					if(power < 0) {
-						double armor = (double)champ.defend() / 100;
-						champ.damage(attacker.name, attack.name, champ.name, -power - (int)((double)-power * armor));
-						if (champ.healthCurrent <= 0 ) {
-							fight = false;
+					if (champ.healthCurrent > 0) {
+						Ability attack = attacker.getAbility();
+						int power = attack.power;
+						if(power < 0) {
+							double armor = (double)champ.defend() / 100;
+							champ.damage(attacker.name, attack.name, champ.name, -power - (int)((double)-power * armor));
+							if (champ.healthCurrent <= 0 ) {
+								fight = false;
+							}
+						} else {
+							attacker.heal(attacker.name, attack.name, power);
 						}
-					} else {
-						attacker.heal(attacker.name, attack.name, power);
 					}
 				}
 			}

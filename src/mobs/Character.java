@@ -76,6 +76,7 @@ public class Character extends Mob {
 			expCurrent = expCurrent - expMax;
 			expMax *= 2;
 		}
+		System.out.println("Current exp: " + expCurrent + "/" + expMax);
 	}
 	public void level() {
 		level++;
